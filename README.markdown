@@ -1,5 +1,6 @@
 
 # ssh puppet module
+[![Build Status](https://secure.travis-ci.org/spiette/puppet-ssh.png?branch=master)](http://travis-ci.org/spiette/puppet-ssh)
 
 This is the ssh module. It manage client and server configurations. It supports:
 
@@ -27,6 +28,7 @@ ssh::config have a config_template parameter to change the template file.
 
 - puppetlabs/stdlib >= 3.0.0
 - ripienarr/concat >= 0.2.0
+- facter >= 1.7.3
 
 # OS
 - RedHat and Debian OS family are supported.
@@ -38,7 +40,7 @@ Apache License, Version 2.0
 
 <pre>
 class { 'ssh':
-  serveroptions = {
+  serveroptions => {
     'PasswordAuthentication' => 'no',
   }
 }
@@ -46,14 +48,23 @@ class { 'ssh':
 ssh::match { 'sftpusers':
   type                => 'group',
   options             => {
-    'X11Forwarding'   => 'no',
-    'TCPForwarding'   => 'no',
-    'GatewayPorts'    => 'no',
-    'ForceCommand'    => 'internal-sftp',
-    'ChrootDirectory' => '/srv/www/%u',
+    'X11Forwarding'      => 'no',
+    'AllowTCPForwarding' => 'no',
+    'GatewayPorts'       => 'no',
+    'ForceCommand'       => 'internal-sftp',
+    'ChrootDirectory'    => '/srv/www/%u',
   },
 }
 </pre>
+
+# Tests
+To run tests, you'll need
+
+* rake
+* rspec_puppet
+* puppetlabs_spec_helper
+
+Run `rake help` to see all targets, `rake spec` to run tests.
 
 # Contact
 Simon Piette <piette.simon@gmail.com>

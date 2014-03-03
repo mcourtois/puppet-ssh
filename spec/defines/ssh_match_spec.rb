@@ -9,9 +9,12 @@ describe 'ssh::match', :type => :define do
     end
 
     let :facts do
-      { :osfamily               => 'Debian',
-        :operatingsystem        => 'Debian',
-        :operatingsystemrelease => '7',
+      {
+        :concat_basedir            => '/dne',
+        :osfamily                  => 'Debian',
+        :operatingsystem           => 'Debian',
+        :operatingsystemrelease    => 7.1,
+        :operatingsystemmajrelease => '7',
       }
     end
     let :params do {
@@ -39,10 +42,13 @@ describe 'ssh::match', :type => :define do
       end
 
       let :facts do
-        { :osfamily               => 'Debian',
-          :operatingsystem        => 'Debian',
-          :operatingsystemrelease => '7',
-        }
+      {
+        :concat_basedir            => '/dne',
+        :osfamily                  => 'Debian',
+        :operatingsystem           => 'Debian',
+        :operatingsystemrelease    => 7.1,
+        :operatingsystemmajrelease => '7',
+      }
       end
       let :params do
         {
@@ -62,7 +68,7 @@ describe 'ssh::match', :type => :define do
         .with_content(/    X11Forwarding no$/)\
         .with(
           'order'  => '20',
-          'target' => serverconfig,
+          'target' => serverconfig
         )
       }
     end
